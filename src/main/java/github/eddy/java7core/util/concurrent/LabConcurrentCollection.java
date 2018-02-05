@@ -1,4 +1,4 @@
-package github.eddy.java7core.util;
+package github.eddy.java7core.util.concurrent;
 
 /**
  * @author and777

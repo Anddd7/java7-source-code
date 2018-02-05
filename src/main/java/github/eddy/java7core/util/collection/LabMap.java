@@ -1,4 +1,4 @@
-package github.eddy.java7core.util;
+package github.eddy.java7core.util.collection;
 
 import github.eddy.java7core.util.collection.TestMap;
 import java.util.AbstractMap;
@@ -48,14 +48,25 @@ public class LabMap {
    |  - {@link TestMap} 测试
 
 
+   {@link IdentityHashMap}
+   - 与HashMap最大的区别是能够存放'相同key'的对象
+   |  - 使用=比较key值 ,如果是 "a" 和 new String("a") 就可以存放2个值
+
+
+   {@link WeakHashMap}
+   - 使用弱引用管理entry ,可能被GC清理掉 ,适用于缓存
+
+
    {@link Hashtable}
    - 同HashMap
    |  - 不允许null值
    |  - 线程安全 ,但建议使用 {@link ConcurrentHashMap}
 
+
    {@link Properties}
    - 继承自HashTable
    |  - 提供从File/InputStream到HashTable的方法
+
 
    {@link LinkedHashMap}
    - 继承自HashMap , 额外增加链表 , 使元素可以按插入顺序(accessOrder = 访问顺序)进行遍历
@@ -71,15 +82,9 @@ public class LabMap {
 
    {@link TreeMap}
    - 基于红黑树的Map ,通过树的搜索/插入/删除来实现Map功能
-   |  - O(log n)
-
-
-   {@link IdentityHashMap}
-
-   {@link WeakHashMap}
-
-
+   |  - 有序结构 ,查询时间 O(log n)
    */
+
   /**
    {@link Set}
    {@link AbstractSet}
@@ -87,9 +92,11 @@ public class LabMap {
 
    {@link HashSet}
    - 基于HashMap的方式实现的set
+
    {@link LinkedHashSet}
+   - 基于LinkedHashMap的方式实现的set
 
    {@link TreeSet}
-
+   - 基于TreeMap的方式实现的set ,是有序的
    */
 }

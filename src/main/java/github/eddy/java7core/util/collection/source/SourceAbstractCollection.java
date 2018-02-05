@@ -1,4 +1,4 @@
-package github.eddy.java7core.util.source;
+package github.eddy.java7core.util.collection.source;
 
 import java.util.AbstractCollection;
 import java.util.Arrays;

@@ -1,8 +1,9 @@
-package github.eddy.java7core.util;
+package github.eddy.java7core.util.collection;
 
 import github.eddy.java7core.io.TestCloneableAndSerializable;
-import github.eddy.java7core.util.collection.TestQueue;
-import github.eddy.java7core.util.source.SourceAbstractCollection;
+import github.eddy.java7core.util.TestRandomAccess;
+import github.eddy.java7core.util.concurrent.LabConcurrentCollection;
+import github.eddy.java7core.util.collection.source.SourceAbstractCollection;
 import java.util.AbstractCollection;
 import java.util.AbstractList;
 import java.util.AbstractQueue;
