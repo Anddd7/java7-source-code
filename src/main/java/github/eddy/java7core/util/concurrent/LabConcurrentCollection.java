@@ -1,9 +1,5 @@
 package github.eddy.java7core.util.concurrent;
 
-/**
- * @author and777
- * @date 2018/1/18
- */
 public class LabConcurrentCollection {
   /**
    {@link java.util.concurrent.ArrayBlockingQueue}

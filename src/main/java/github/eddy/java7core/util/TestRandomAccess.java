@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.RandomAccess;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author and777
@@ -20,11 +18,9 @@ import org.slf4j.LoggerFactory;
  */
 public class TestRandomAccess {
 
-  private static final Logger log = LoggerFactory.getLogger(TestRandomAccess.class);
-
-  List<? extends List> lists = Arrays.asList(new ArrayList(), new LinkedList());
-  int elmtCount = 100;
-  int loopCount = 1000;
+  private List<? extends List> lists = Arrays.asList(new ArrayList(), new LinkedList());
+  private int elmtCount = 100;
+  private int loopCount = 1000;
 
   @Before
   public void before() {
@@ -38,7 +34,6 @@ public class TestRandomAccess {
   @Test
   public void arrayWithForTest() {
     List list = lists.get(0);
-
     for (int i = 0; i < loopCount; i++) {
       for (int i1 = 0; i1 < list.size(); i1++) {
         System.out.println(list.get(i1));

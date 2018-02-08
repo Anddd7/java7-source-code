@@ -1,26 +1,25 @@
 package github.eddy.java7core.util.concurrent;
 
-/**
- * @author and777
- * @date 2018/1/31
- *
- *
- * 可重入锁Reentrant : 基于线程的分配 ,线程拿到锁过后执行加锁的方法不需要重复拿锁
- * - synchronized methodA 中调用了 synchronized methodB
- * - 当一个线程有权执行methodA时 ,就能直接执行methodB
- * - 实现 : synchronized/Lock
- *
- * 可中断锁 : 未拿到锁而等待的线程可以相应中断
- * - 实现 : Lock
- *
- * 公平锁 : 按请求顺序获取锁
- * - 实现 : ReentrantLock/ReentrantReadWriteLock
- *
- * 读写锁 : 读写/写写 需要同步 ,读读不需要
- * - 实现 : ReadWriteLock
- */
+
 public class LabLock {
   /**
+   可重入锁Reentrant : 基于线程的分配 ,线程拿到锁过后执行加锁的方法不需要重复拿锁
+   - synchronized methodA 中调用了 synchronized methodB
+   - 当一个线程有权执行methodA时 ,就能直接执行methodB
+   - 实现 : synchronized/Lock
+
+   可中断锁 : 未拿到锁而等待的线程可以相应中断
+   - 实现 : Lock
+
+   公平锁 : 按请求顺序获取锁
+   - 实现 : ReentrantLock/ReentrantReadWriteLock
+
+   读写锁 : 读写/写写 需要同步 ,读读不需要
+   - 实现 : ReadWriteLock
+   */
+
+  /**
+   锁工具
    {@link java.util.concurrent.locks.Lock}
    - 定义锁的操作 :
    | - lock 获取锁 : 获取不到会等待

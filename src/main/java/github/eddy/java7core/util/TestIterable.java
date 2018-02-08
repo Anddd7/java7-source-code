@@ -11,11 +11,13 @@ import org.junit.Test;
 /**
  * @author and777
  * @date 2018/1/12
+ *
+ * {@link Iterable} 接口
  */
 public class TestIterable {
 
-  List<? extends List> lists = Arrays.asList(new ArrayList(), new LinkedList());
-  int elmtCount = 1000;
+  private List<? extends List> lists = Arrays.asList(new ArrayList(), new LinkedList());
+  private int elmtCount = 1000;
 
   @Before
   public void before() {

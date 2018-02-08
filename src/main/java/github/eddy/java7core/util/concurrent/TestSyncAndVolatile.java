@@ -11,14 +11,14 @@ import org.junit.Test;
  */
 public class TestSyncAndVolatile {
 
-
-  private boolean runFlagA = true;
-  private volatile boolean runFlagB = true;
   /**
    * volatile 标识的字段不会受缓存影响
    * A: 使用的普通的变量 ,当另一个线程修改了变量值后 ,当前工作环境的runFlagA变量仍旧使用的自己的缓存值(true) ,无法停止
    * B: 使用的volatile变量 ,当另一个线程修改了变量值后即时的刷新到了当前线程 ,循环随即停止
    */
+  private boolean runFlagA = true;
+  private volatile boolean runFlagB = true;
+
   @Test
   public void volatileTest() throws InterruptedException {
     ExecutorService executor = Executors.newFixedThreadPool(4);

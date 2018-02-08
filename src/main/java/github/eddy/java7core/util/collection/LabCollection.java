@@ -2,8 +2,8 @@ package github.eddy.java7core.util.collection;
 
 import github.eddy.java7core.io.TestCloneableAndSerializable;
 import github.eddy.java7core.util.TestRandomAccess;
-import github.eddy.java7core.util.concurrent.LabConcurrentCollection;
 import github.eddy.java7core.util.collection.source.SourceAbstractCollection;
+import github.eddy.java7core.util.concurrent.LabConcurrentCollection;
 import java.util.AbstractCollection;
 import java.util.AbstractList;
 import java.util.AbstractQueue;
@@ -23,12 +23,6 @@ import java.util.Vector;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.BlockingQueue;
 
-/**
- * @author and777
- * @date 2018/1/12
- *
- * collection learning
- */
 public class LabCollection {
   /**
    - 相关接口

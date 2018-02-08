@@ -15,15 +15,12 @@ import org.junit.Test;
  */
 public class TestLock {
 
-  ExecutorService executor = Executors.newFixedThreadPool(5);
-  List<Integer> list = new ArrayList<>();
+  private ExecutorService executor = Executors.newFixedThreadPool(5);
+  private List<Integer> list = new ArrayList<>();
+  private volatile boolean flag = true;
 
-  volatile boolean flag = true;
-
-
-  ReentrantLock lock = new ReentrantLock();
-  ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
-
+  private ReentrantLock lock = new ReentrantLock();
+  private ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
   private void submitTask(Runnable runnable) throws InterruptedException {
     for (int i = 0; i < 5; i++) {

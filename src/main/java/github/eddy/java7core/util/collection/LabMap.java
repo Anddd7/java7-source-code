@@ -1,8 +1,8 @@
 package github.eddy.java7core.util.collection;
 
-import github.eddy.java7core.util.collection.TestMap;
 import java.util.AbstractMap;
 import java.util.AbstractSet;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -17,10 +17,6 @@ import java.util.TreeSet;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * @author and777
- * @date 2018/1/23
- */
 public class LabMap {
   /**
    - 顶层接口
@@ -58,9 +54,9 @@ public class LabMap {
 
 
    {@link Hashtable}
-   - 同HashMap
+   - 类似HashMap : 属于Java遗留的结构 ,并不适用于现在使用 (使用  替代)
    |  - 不允许null值
-   |  - 线程安全 ,但建议使用 {@link ConcurrentHashMap}
+   |  - 线程安全 ,但建议使用 {@link ConcurrentHashMap} > {@link Collections#synchronizedMap(Map)}
 
 
    {@link Properties}
