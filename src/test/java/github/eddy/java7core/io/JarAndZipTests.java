@@ -20,21 +20,20 @@ import org.junit.Test;
  * @author and777
  * @date 2018/2/7
  */
-public class TestJarAndZip {
+public class JarAndZipTests {
 
-  //"D:\\IDEASpace\\java7-source-code\\";
-  static final String projectPath = System.getProperty("user.dir") + File.separator;
+  private static final String PROJECT_PATH = System.getProperty("user.dir") + File.separator;
 
-  static final String srcPath = projectPath + "src";
-  static final String zipPath = projectPath + "target" + File.separator + "src.zip";
-  static final String jarPath = projectPath
-      + "target" + File.separator + "algorithm-lab-java7-1.0-SNAPSHOT.jar";
+  private static final String SRC_PATH = PROJECT_PATH + "src";
+  private static final String ZIP_PATH = PROJECT_PATH + "target" + File.separator + "src.zip";
+  private static final String JAR_PATH =
+      PROJECT_PATH + "target" + File.separator + "algorithm-lab-java7-1.0-SNAPSHOT.jar";
 
   @Test
-  public void zipTest() throws IOException {
-    ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(zipPath));
+  public void zip_CreateZipFile() throws IOException {
+    ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(ZIP_PATH));
     //压缩src文件夹
-    zip("", new File(srcPath), zipOutputStream);
+    zip("", new File(SRC_PATH), zipOutputStream);
     //添加额外的一个描述文件
     zipOutputStream.putNextEntry(new ZipEntry("README.txt"));
     zipOutputStream.write("Hello ,ZIP~".getBytes());
@@ -67,9 +66,9 @@ public class TestJarAndZip {
   }
 
   @Test
-  public void unzipTest() throws IOException {
-    ZipFile zipFile = new ZipFile(zipPath);
-    File outputFile = new File(zipPath.substring(0, zipPath.lastIndexOf(File.separator)));
+  public void unzip_UnZipFile() throws IOException {
+    ZipFile zipFile = new ZipFile(ZIP_PATH);
+    File outputFile = new File(ZIP_PATH.substring(0, ZIP_PATH.lastIndexOf(File.separator)));
 
     Enumeration<ZipEntry> entryEnumeration = (Enumeration<ZipEntry>) zipFile.entries();
     while (entryEnumeration.hasMoreElements()) {
@@ -109,13 +108,11 @@ public class TestJarAndZip {
    * - 通过 JarInputStream 直接读取文件流的方式
    */
   @Test
-  public void getJar() throws IOException {
-    URL url = new URL("jar:file:" + jarPath + "!/");
+  public void jar_FindJar() throws IOException {
+    URL url = new URL("jar:file:" + JAR_PATH + "!/");
     JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();
     JarFile jarFile1 = jarURLConnection.getJarFile();
-
-    JarFile jarFile2 = new JarFile(jarPath);
-
+    JarFile jarFile2 = new JarFile(JAR_PATH);
     Assert.assertEquals(jarFile1.getName(), jarFile2.getName());
   }
 }

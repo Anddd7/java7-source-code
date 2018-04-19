@@ -7,12 +7,8 @@ import java.util.Objects;
 /**
  * @author and777
  * @date 2018/2/5
- *
- * {@link Arrays} and {@link Objects}
- * TODO 测试方法
  */
-public class TestArraysAndObjects {
-
+public class ArraysTests {
   /**
    {@link Arrays#asList(Object[])}}
    - 数组转List
@@ -51,20 +47,4 @@ public class TestArraysAndObjects {
 
    {@link Arrays#sort(Object[], Comparator)}
    */
-
-  /**
-   {@link Objects#equals(Object, Object)}
-   {@link Objects#hashCode(Object)}
-   {@link Objects#toString(Object)}
-   - 用来避免Object为空时 ,object.equals等的空指针异常
-
-
-   {@link Objects#compare(Object, Object, Comparator)}
-   - 对象比较
-
-   {@link Objects#requireNonNull(Object, String)}
-   - 空则抛出NullPointerException
-   */
-
-
 }

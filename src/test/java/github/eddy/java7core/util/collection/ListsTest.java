@@ -16,7 +16,7 @@ import org.junit.Test;
  * @author and777
  * @date 2018/1/18
  */
-public class TestList {
+public class ListsTest {
 
 
   Random r;

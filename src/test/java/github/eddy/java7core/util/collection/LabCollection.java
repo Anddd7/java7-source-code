@@ -1,7 +1,7 @@
 package github.eddy.java7core.util.collection;
 
-import github.eddy.java7core.io.TestCloneableAndSerializable;
-import github.eddy.java7core.util.TestRandomAccess;
+import github.eddy.java7core.io.CloneableTests;
+import github.eddy.java7core.util.RandomAccessTests;
 import github.eddy.java7core.util.collection.source.SourceAbstractCollection;
 import github.eddy.java7core.util.concurrent.LabConcurrentCollection;
 import java.util.AbstractCollection;
@@ -26,8 +26,8 @@ import java.util.concurrent.BlockingQueue;
 public class LabCollection {
   /**
    - 相关接口
-   {@link TestCloneableAndSerializable}
-   {@link TestRandomAccess}
+   {@link CloneableTests}
+   {@link RandomAccessTests}
    */
 
   /**

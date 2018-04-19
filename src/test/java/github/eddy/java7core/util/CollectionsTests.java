@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.SortedSet;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -21,7 +22,7 @@ import org.junit.Test;
  * {@link Collections}
  * TODO 测试方法
  */
-public class TestCollections {
+public class CollectionsTests {
   /**
    针对LinkedList(sequential access list) 的优化参数
    - size在threshold值以下的操作可以直接进行
@@ -111,14 +112,14 @@ public class TestCollections {
    * - 指定list向右移位 (向左移动3 = 向右移动size-3)
    */
   @Test
-  public void rotate() {
+  public void rotate_MoveElementsTowardsRight() {
     List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
     Collections.rotate(integers, 3);
-    System.out.println(integers);
+    Assert.assertEquals(3, integers.get(0).intValue());
     Collections.rotate(integers, -3);
-    System.out.println(integers);
+    Assert.assertEquals(1, integers.get(0).intValue());
     Collections.rotate(integers, integers.size() - 3);
-    System.out.println(integers);
+    Assert.assertEquals(4, integers.get(0).intValue());
   }
 
   /**

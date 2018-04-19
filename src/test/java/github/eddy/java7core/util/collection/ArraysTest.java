@@ -9,7 +9,7 @@ import org.junit.Test;
  *
  * 数组相关的操作
  */
-public class TestArray {
+public class ArraysTest {
 
   int[] source = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 
