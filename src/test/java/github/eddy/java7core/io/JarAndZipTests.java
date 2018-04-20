@@ -18,7 +18,6 @@ import org.junit.Test;
 
 /**
  * @author and777
- * @date 2018/2/7
  */
 public class JarAndZipTests {
 

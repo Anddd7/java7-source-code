@@ -1,6 +1,7 @@
 package github.eddy.java7core.util.collection;
 
 import github.eddy.java7core.io.CloneableTests;
+import github.eddy.java7core.util.IterableTests;
 import github.eddy.java7core.util.RandomAccessTests;
 import github.eddy.java7core.util.collection.source.SourceAbstractCollection;
 import github.eddy.java7core.util.concurrent.LabConcurrentCollection;
@@ -25,39 +26,14 @@ import java.util.concurrent.BlockingQueue;
 
 public class LabCollection {
   /**
-   - 相关接口
+   - 功能接口
    {@link CloneableTests}
    {@link RandomAccessTests}
-   */
-
-  /**
-   - 顶层接口
-
-   {@link Iterable}
-   - 返回一个迭代器 ,用于实现 for (T element : collection){}的语法糖 ,编译后实际是 for (Iterator iterator = list.iterator(); iterator.hasNext(); ) {}
-
-   {@link Collection}
-   - 集合基本操作定义
-
-   {@link AbstractCollection}
-   - 集合类型基类 :
-   |  - 所有需要查询/遍历集合的行为 ,都是通过生成的iterator实现的
-   |  - 实现contains/remove方法
-   |  - 实现{@link SourceAbstractCollection#toArray()} ,并发情况下复制元素 ,扩容 n/2+1
-   */
-
-  /**
    {@link Iterator}
-   - 迭代器 : 不同数据结构创建自己的迭代器 ,用来屏蔽底层数据结构的遍历方式(例如数组和链表)
-
    {@link ListIterator}
-   - 双向迭代器 ,为list提供add/set/remove等方法
    */
 
   /**
-   {@link List}
-   - 有序列表
-
    {@link AbstractList}
    - List基类
    |  - 实现iterator和listIterator : 轻量级内部类

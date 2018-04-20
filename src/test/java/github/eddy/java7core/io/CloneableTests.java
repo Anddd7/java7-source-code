@@ -58,7 +58,7 @@ public class CloneableTests {
     assertNotEquals(line.point.id, cloneLine.point.id);
   }
 
-  class Point implements Cloneable {
+  final class Point implements Cloneable {
 
     long id;
     String name;
@@ -69,7 +69,7 @@ public class CloneableTests {
     }
   }
 
-  class Line implements Cloneable {
+  final class Line implements Cloneable {
 
     long id;
     Point point;

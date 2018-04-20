@@ -1,6 +1,5 @@
 package github.eddy.java7core.util;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -16,20 +15,25 @@ import org.junit.Test;
 
 /**
  * @author and777
- * @date 2018/1/12
  *
- * {@link Iterable} 接口
- *
- * 标示这个对象可以使用for迭代器
+ * {@link Iterable}
+ * 实现该接口的对象可以使用for迭代器
  * for (Object o : it) {
  * }
+ *
+ * 实质是被编译成：
+ * for(Iterator it = list.iterator();it.hasNext();){
+ * Object o = it.next();
+ * }
+ *
+ * 这个接口主要是用来隐藏 ArrayList 和 LinkedList 遍历时候的不同实现 (配合 {@link Iterator} )
  */
+@SuppressWarnings({"unused", "ResultOfMethodCallIgnored"})
+
 public class IterableTests {
 
-  private final int count = 1000;
-  private ArrayList<Integer> arrayList = mock(ArrayList.class);
-  private LinkedList<Integer> linkedList = mock(LinkedList.class);
-  private Iterator iterator = mock(Iterator.class);
+  private ArrayList arrayList = mock(ArrayList.class);
+  private LinkedList linkedList = mock(LinkedList.class);
 
   @Before
   public void before() {
@@ -42,6 +46,7 @@ public class IterableTests {
   @Test
   public void fori_ShouldNotCallIterator() {
     for (int i = 0; i < 10; i++) {
+
       arrayList.get(i);
       linkedList.get(i);
     }
@@ -55,11 +60,11 @@ public class IterableTests {
   @Test
   public void for_ShouldCallIterator() {
     int itCount = 0;
-    for (Integer integer : arrayList) {
-      itCount += integer;
+    for (Object o : arrayList) {
+      itCount += (Integer) o;
     }
-    for (Integer integer : linkedList) {
-      itCount += integer;
+    for (Object o : linkedList) {
+      itCount += (Integer) o;
     }
 
     verify(arrayList, times(1)).iterator();

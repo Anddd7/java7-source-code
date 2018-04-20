@@ -3,38 +3,36 @@ package github.eddy.java7core.util;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.RandomAccess;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
  * @author and777
- * @date 2018/1/12
  *
- * {@link java.util.RandomAccess}
- * - 标识一个List是否是可随机访问的, 可随机访问的(ArrayList)使用for循环要比iterator迭代器更快
+ * {@link RandomAccess}
+ * 标识一个List是否是可随机访问的, 可随机访问的(ArrayList)使用for循环要比iterator迭代器更快
  */
+@SuppressWarnings({"unused", "UnusedAssignment", "ForLoopReplaceableByForEach"})
 public class RandomAccessTests {
-
-  private final int count4Array = Integer.MAX_VALUE >> 6;
-  private final int count4Linked = Integer.MAX_VALUE >> 16;
 
   private List<Integer> arrayList = new ArrayList<>();
   private List<Integer> linkedList = new LinkedList<>();
 
   @Before
   public void before() {
-    for (int i = 0; i < count4Array; i++) {
+    for (int i = 0; i < Integer.MAX_VALUE >>> 6; i++) {
       arrayList.add(i);
     }
 
-    for (int i = 0; i < count4Linked; i++) {
+    for (int i = 0; i < Integer.MAX_VALUE >>> 16; i++) {
       linkedList.add(i);
     }
   }
 
   @Test
-  public void array_TimeCostWithForLoopWillLessThanIterator() {
+  public void array_TimeCostWithForLoopShouldLessThanIterator() {
     int count = 0;
     long start = System.currentTimeMillis();
 
@@ -55,7 +53,7 @@ public class RandomAccessTests {
   }
 
   @Test
-  public void linked_TimeCostWithForLoopWillLessThanIterator() {
+  public void linked_TimeCostWithForLoopShouldMoreThanIterator() {
     int count = 0;
     long start = System.currentTimeMillis();
 
