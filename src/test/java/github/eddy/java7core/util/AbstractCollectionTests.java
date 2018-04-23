@@ -8,9 +8,10 @@ import java.util.Iterator;
 /**
  * @author Anddd7
  *
- * {@link Collection} 的 Abstract 实现
+ * {@link AbstractCollection} extends {@link Collection}
+ * {@link AbstractCollectionTests} extends {@link CollectionTests}
  */
-public class AbstractCollectionTests extends CollectionTests {
+public class AbstractCollectionTests {
 
   /**
    * 数组的最大长度在不同的 JVM 可能不同 ,通常是小于 Integer.MAX_VALUE 的

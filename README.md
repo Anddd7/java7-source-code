@@ -4,6 +4,10 @@
 
 
 # Tracker
+### 20180420
+* 对每一个类梳理一个 Tests 文件 ,并提供 Doc 注释或者测试案例
+* Collection/AbstractCollection/List 等接口和类的源码分析(基于方法)
+
 ### 20180419
 复习除 J.U.C 之外的其他包 ，适当重写
 * 使用 Junit/Mock 书写测试

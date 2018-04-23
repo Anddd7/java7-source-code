@@ -23,6 +23,14 @@ public class MyIterable implements Iterable<Integer> {
     return false;
   }
 
+  public void setParameters(int[] parameters) {
+    this.parameters = parameters;
+  }
+
+  public int size(){
+    return parameters.length;
+  }
+
   @Override
   public Iterator<Integer> iterator() {
     return new MyIterator();

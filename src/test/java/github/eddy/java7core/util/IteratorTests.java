@@ -42,4 +42,20 @@ public class IteratorTests {
     assertEquals(3, iterator.next());
     assertFalse(iterator.hasNext());
   }
+
+  @Test
+  public void iterator_ShouldContain4IntegersAfterSetParameters(){
+    Iterator iterator = iterable.iterator();
+    assertEquals(3, iterable.size());
+
+    iterable.setParameters(new int[]{4,3, 2, 1});
+    assertEquals(4, iterable.size());
+
+    assertTrue(iterator.hasNext());
+    assertEquals(4, iterator.next());
+    assertEquals(3, iterator.next());
+    assertEquals(2, iterator.next());
+    assertEquals(1, iterator.next());
+    assertFalse(iterator.hasNext());
+  }
 }

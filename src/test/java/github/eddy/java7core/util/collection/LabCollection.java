@@ -34,23 +34,6 @@ public class LabCollection {
    */
 
   /**
-   {@link AbstractList}
-   - List基类
-   |  - 实现iterator和listIterator : 轻量级内部类
-   |  - 实现subList : 通过 list引用/上下界 约束对list的部分访问
-   |  - 实现indexOf/lastIndexOf : 基于listIterator ,从头/尾开始遍历
-
-   {@link AbstractSequentialList}
-   - 与RandomAccess相反 ,不能随机访问某一元素 ,因此add/set/get方法都是无效的
-   |  - 但是又必须提供标准的collection的方法 ,所以基于listIterator实现add/set/get
-
-   {@link ArrayList}
-   - 基于数组实现的有序列表
-   |  - 实现add/get/set方法 : 对数组取用
-   |  - 实现扩容算法 : 初始为空数组 ,加入元素扩容到10 ,每次扩容为当前长度的1.5倍 {@link ArrayList#ensureCapacityInternal(int)}
-   |  - 手动扩容(大数据量时 ,避免多次自动扩容的性能损失) : ensureCapacity{@link ArrayList#ensureCapacity(int)}
-   |  - 线程不安全 : add/set方法不是原子操作 ,多线程情况下会冲突
-
    {@link Vector}
    - 结构和方法同ArrayList ,但是线程安全的
    |  - 扩容大小可手动设置 ,默认是当前元素的2倍
