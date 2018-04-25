@@ -9,8 +9,11 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.RandomAccess;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -19,7 +22,7 @@ import org.junit.Test;
  * {@link ArrayList} extends {@link AbstractList}
  * implements {@link List,RandomAccess,Cloneable,Serializable}
  *
- * {@link ArrayListTests} extends {@link AbstractList}
+ * {@link ArrayListTests} extends {@link AbstractListTests}
  * implements {@link ListTests,RandomAccessTests,CloneableTests,SerializableTests}
  *
  * 数组实现的 List
@@ -31,11 +34,23 @@ public class ArrayListTests {
    */
   private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
   /**
+   * {@link ArrayList#modCount}
+   * 结构性变化(size 变化)计数
+   * - 主要用于迭代器的迭代过程中 ,发生结构性变化会导致返回不正确的结果
+   * - 使用这个变量来记录和比较当前的结构变化
+   */
+  protected transient int modCount = 0;
+  /**
    * {@link ArrayList#elementData}
    * - 存放元素
    * - 没有用泛型 ,省略泛型强转的声明 ,只在必要时申明 -> get
    */
   private transient Object[] elementData;
+  /**
+   * {@link ArrayList#size}
+   * - 有效元素数目
+   */
+  private int size;
 
   /**
    * {@link ArrayList#EMPTY_ELEMENTDATA
@@ -110,34 +125,23 @@ public class ArrayListTests {
    * {@link ArrayList#rangeCheckForAdd(int)}
    * - 检查是否超界
    *
-   * {@link ArrayList#removeAll(Collection)}
-   * {@link ArrayList#retainAll(Collection)}
-   * {@link ArrayList#batchRemove(Collection, boolean)}
-   * TODO
-   *
    * {@link ArrayList#writeObject(ObjectOutputStream)}
-   * TODO
-   *
    * {@link ArrayList#readObject(ObjectInputStream)}
-   * TODO
+   * - size:Object:Object... 依次写入和读出
    *
    * {@link ArrayList#iterator()}
    * {@link ArrayList#listIterator()}
    * {@link ArrayList#listIterator(int)}
-   * - 重载 返回重写的迭代器
-   *
-   * {@link ArrayList.Itr}
-   * TODO
-   *
-   * {@link ArrayList.ListItr}
-   * TODO
-   *
    * {@link ArrayList#subList(int, int)}
    * {@link ArrayList#subListRangeCheck(int, int, int)}
    * - 重载 返回重写的迭代器
    *
+   * {@link ArrayList.Itr}
+   * {@link ArrayList.ListItr}
+   * - 优化 AbstractList 中的版本 : 直接访问数组 替代 get/size 方法
+   *
    * {@link ArrayList.SubList}
-   * TODO
+   * - 也继承了 RandomAccess 接口
    */
 
   public ArrayListTests() {
@@ -175,8 +179,131 @@ public class ArrayListTests {
     elementData = Arrays.copyOf(elementData, newCapacity);
   }
 
+  /**
+   * {@link ArrayList#removeAll(Collection)}
+   * {@link ArrayList#retainAll(Collection)}
+   * {@link ArrayList#batchRemove(Collection, boolean)}
+   * - 批量 删除/保留
+   */
+  private boolean batchRemove(Collection<?> c, boolean complement) {
+    // 避免 this. 的重复书写
+    final Object[] elementData = this.elementData;
+    // read/write index
+    int r = 0, w = 0;
+    boolean modified = false;
+    try {
+      for (; r < size; r++) {
+        // 删除/保留 指定元素
+        if (c.contains(elementData[r]) == complement) {
+          // 依次(从数组头)覆盖写
+          elementData[w++] = elementData[r];
+        }
+      }
+    } finally {
+      // 异常终止 ,把没有 read 的元素 append 到当前的 write 元素后
+      // - | 1 2 3 4 5 6 : remove [3]
+      // 1 2 | 1 2 3 4 5 6 : remove中途中断
+      // 1 2 4 5 6 | - : 将剩下的元素直接 append 到后面 ,同时 w 坐标 = w+(size-r)
+      if (r != size) {
+        System.arraycopy(elementData, r, elementData, w, size - r);
+        w += size - r;
+      }
+      // 如果成功删除了元素 w < size
+      if (w != size) {
+        // 将 w 坐标往后的元素(有效的在前,剩下的都是无效元素)清除
+        for (int i = w; i < size; i++) {
+          elementData[i] = null;
+        }
+        modCount += size - w;
+        size = w;
+        modified = true;
+      }
+    }
+    return modified;
+  }
+
+  /**
+   * Some Tests
+   */
+
   @Test
-  public void arrayList_IsNotThreadSafety() {
-    // TODO 非线程安全测试
+  public void arrayList_IsNotThreadSafety() throws InterruptedException {
+    final int expectSize = 20000;
+    final ArrayList<Integer> list = new ArrayList<>(expectSize);
+
+    Runnable runnable = new Runnable() {
+      @Override
+      public void run() {
+        for (int i = 0; i < expectSize / 2; i++) {
+          list.add(i);
+        }
+      }
+    };
+
+    Thread t1 = new Thread(runnable, "Thread-Add-1");
+    Thread t2 = new Thread(runnable, "Thread-Add-2");
+
+    t1.start();
+    t2.start();
+
+    t1.join();
+    t2.join();
+
+    Assert.assertTrue(list.size() > 0);
+    Assert.assertTrue(list.size() < expectSize);
+  }
+
+  @Test
+  public void arrayList_ThrowsConcurrentModificationException() throws InterruptedException {
+    final ArrayList<Integer> list = new ArrayList<>();
+    for (int i = 0; i < 20000; i++) {
+      list.add(i);
+    }
+
+    final Iterator<Integer> iterator = list.iterator();
+
+    Runnable remove = new Runnable() {
+      @Override
+      public void run() {
+        for (int i = 0; i < list.size(); i++) {
+          list.remove(i);
+        }
+      }
+    };
+    CatchExceptionRunnable next = new CatchExceptionRunnable() {
+      @Override
+      public void run0() {
+        while (iterator.hasNext()) {
+          iterator.next();
+        }
+      }
+    };
+
+    Thread t1 = new Thread(remove, "Thread-List-Add");
+    Thread t2 = new Thread(next, "Thread-Iterator-Next");
+
+    t1.start();
+    t2.start();
+
+    t1.join();
+    t2.join();
+
+    Assert.assertTrue(next.catchException);
+  }
+
+  abstract class CatchExceptionRunnable implements Runnable {
+
+    boolean catchException = false;
+
+    @Override
+    public void run() {
+      try {
+        run0();
+      } catch (Exception e) {
+        catchException = e instanceof ConcurrentModificationException;
+      }
+    }
+
+    abstract void run0();
   }
 }

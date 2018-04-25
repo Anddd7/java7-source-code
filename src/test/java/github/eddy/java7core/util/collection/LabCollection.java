@@ -1,49 +1,18 @@
 package github.eddy.java7core.util.collection;
 
-import github.eddy.java7core.io.CloneableTests;
-import github.eddy.java7core.util.IterableTests;
-import github.eddy.java7core.util.RandomAccessTests;
-import github.eddy.java7core.util.collection.source.SourceAbstractCollection;
 import github.eddy.java7core.util.concurrent.LabConcurrentCollection;
-import java.util.AbstractCollection;
-import java.util.AbstractList;
 import java.util.AbstractQueue;
-import java.util.AbstractSequentialList;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Deque;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
-import java.util.Vector;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.BlockingQueue;
 
 public class LabCollection {
   /**
-   - 功能接口
-   {@link CloneableTests}
-   {@link RandomAccessTests}
-   {@link Iterator}
-   {@link ListIterator}
-   */
-
-  /**
-   {@link Vector}
-   - 结构和方法同ArrayList ,但是线程安全的
-   |  - 扩容大小可手动设置 ,默认是当前元素的2倍
-   |  - 线程安全 : 在add/get/set/ensureCapacity等方法上添加了synchronized关键字(所有对elementData数组进行操作取值的方法){@link Vector#ensureCapacity(int)}
-
-   {@link Stack}
-   - 基于Vector实现的栈 ,实现后入先出(LIFO) : 官方推荐使用Deque来实现栈的功能
-   |  - push = add() ,pop = remove(lastIndex) ,search = 比较最后一个元素
-   |  - 线程安全 : synchronized关键字
-
    {@link LinkedList}
    - 链表结构
    |  - 基于node(prev,element,next)存放和链接数据
