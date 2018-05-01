@@ -13,29 +13,9 @@ import java.util.concurrent.BlockingQueue;
 
 public class LabCollection {
   /**
-   {@link LinkedList}
-   - 链表结构
-   |  - 基于node(prev,element,next)存放和链接数据
-   |  - 记录头/尾node ,进行相关操作 getFirst/getLast/add
-   |  - 线程不安全 : add/get不是原子操作s
    */
 
   /**
-   {@link Queue}
-   - 队列 ,先进先出
-   |  - 队列不允许随机访问元素 (窄化了list的访问方式)
-   |  - collection#add/remove/element 和 queue#poll/offer/peek 的方法实现一致 ,只是collection超界会抛出异常 ,队列则不会
-   |  - 队列大多数用于多线程环境 ,队列是可能为空和为满的 ,因此应该避免可能的超界异常 -> 避免使用collection的一些方法
-
-   {@link Deque}
-   - 双向队列 ,两头进两头出
-   |  - 提供了对两头元素的访问方式 ,offer = offerLast ,poll = pollFirst
-   |  - 提供了stack相关的方法 : push=offerFirst ,pop=pollFirst
-
-   {@link LinkedList}
-   - 基于链表的队列实现
-   |  - 队列方法和集合方法的实现是一样的 ,只是角度不同
-
    {@link ArrayDeque}
    - 基于数组的队列实现
    |  - 默认大小16 ; 每次扩容2倍 ; 给定大小n ,会计算出最小的大于n的 2^k-1 长度 {@link TestQueue#allocateElements()}

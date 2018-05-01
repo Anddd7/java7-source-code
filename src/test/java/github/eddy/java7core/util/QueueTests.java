@@ -8,7 +8,8 @@ import java.util.Queue;
  * {@link Queue} extends {@link Collection}
  * {@link QueueTests} extends {@link CollectionTests}
  *
- * 单向队列 ,即先入先出
+ * 单向队列 ,只能访问队头的元素 ,先入先出
+ *
  */
 public class QueueTests {
 
