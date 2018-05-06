@@ -44,7 +44,6 @@ public class ArrayDequeTests<E> {
    * {@link ArrayDeque#ArrayDeque(Collection)}
    * - 初始/最小容量为16
    *
-   * TODO -
    */
   public ArrayDequeTests() {
   }
@@ -148,9 +147,23 @@ public class ArrayDequeTests<E> {
 
   /**
    * {@link ArrayDeque#size()}
-   * TODO -
+   * - (容量-1) 会得到 0...111...111 的二进制数字
+   * - tail-head>0 : 得到正常的元素数
+   * - tail-head<0 : tail 指针已经跨界(循环数组), 经过与操作(取补)
    */
   public int size() {
     return (tail - head) & (elements.length - 1);
+  }
+
+  /**
+   * {@link ArrayDeque#addFirst(Object)}
+   * TODO -
+   */
+  public void addFirst(E e) {
+    if (e == null)
+      throw new NullPointerException();
+    elements[head = (head - 1) & (elements.length - 1)] = e;
+    if (head == tail)
+      doubleCapacity();
   }
 }

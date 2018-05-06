@@ -4,9 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author and777
- * @date 2018/1/12
  */
-
 public class SerializableLine implements Serializable {
 
   private static final long serialVersionUID = 4370121844819715392L;

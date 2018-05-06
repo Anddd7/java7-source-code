@@ -7,7 +7,8 @@ import org.junit.Test;
 /**
  * @author and777
  *
- * System 工具
+ * {@link System}
+ * 系统工具类
  */
 public class SystemTests {
 

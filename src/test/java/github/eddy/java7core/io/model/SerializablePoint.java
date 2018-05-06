@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 /**
  * @author and777
- * @date 2018/1/12
  */
 public class SerializablePoint implements Serializable {
 

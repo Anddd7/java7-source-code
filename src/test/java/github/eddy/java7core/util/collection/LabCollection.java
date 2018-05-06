@@ -13,16 +13,6 @@ import java.util.concurrent.BlockingQueue;
 
 public class LabCollection {
   /**
-   */
-
-  /**
-   {@link ArrayDeque}
-   - 基于数组的队列实现
-   |  - 默认大小16 ; 每次扩容2倍 ; 给定大小n ,会计算出最小的大于n的 2^k-1 长度 {@link TestQueue#allocateElements()}
-   |  - 扩容时会复制元素并重排序 {@link ArrayDeque#doubleCapacity()} :  |------|tail/head|-------|  =>  |head|-------------|tail|....................|
-   |  - FIFO : 使用 head/tail 指向当前 取值/放置 的坐标 @{@link TestQueue#arraDeque()}
-   |  - 线程不安全
-
    {@link AbstractQueue}
    - 队列基本实现 : 基于 offer/poll/peek 实现 add/remove/element
 
