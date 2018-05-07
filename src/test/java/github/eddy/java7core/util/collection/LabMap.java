@@ -19,31 +19,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class LabMap {
   /**
-   - 顶层接口
-
-   {@link Map}
-   {@link AbstractMap}
-   - 存放 Entry(key:value) 的键值对
-   |  - key不能重复
-
-
-   {@link HashMap}
-   - 基于hash算法实现的Map
-   |  - 数组(桶) + 链表(entries) + hash + indexFor
-   |    - {@link HashMap#indexFor(int, int)} 把hash映射约束在数组范围(低位掩码)
-   |    - {@link HashMap#hash(Object)} 扰动函数 ,减少hash(低位)碰撞
-
-   |  - 桶初始大小16,负载因子0.75 ; 当size >= capacity*loadFactor ,就会扩容
-   |    - 桶大小必须是2^n ,通过indexFor的位置才均匀
-   |    - 负载因子越大 ,桶越少/链表元素越多 ,内存占用少查询时间长
-   |  - hash算出key对应哪一个桶 ,再遍历链表 : 替换值或添加到链表头 (单向链表)
-   |  - 扩容
-   |    - 桶扩大2倍
-   |    - 重分配 : 遍历每个桶的元素 ,获取hash值(使用随机hashSeed时还会重hash) ,indexFor判断应该在哪个桶
-   |  - 线程不安全
-   |  - {@link TestMap} 测试
-
-
    {@link IdentityHashMap}
    - 与HashMap最大的区别是能够存放'相同key'的对象
    |  - 使用=比较key值 ,如果是 "a" 和 new String("a") 就可以存放2个值

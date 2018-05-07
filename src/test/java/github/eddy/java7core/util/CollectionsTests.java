@@ -67,7 +67,7 @@ public class CollectionsTests {
    * {@link Collections#emptyListIterator()}
    * {@link Collections#emptyMap()}
    * {@link Collections#emptySet()}
-   * - 返回高效的空 集合/枚举/Map
+   * - 返回高效的空 集合/枚举/MapTests
    * |  - static final : 全局共享 ,多次使用也不会耗费额外资源
    * |  - 重载方法 ,例如 contains = false : 节省不必要的计算
    *
