@@ -6,12 +6,10 @@ import org.junit.Test;
 
 /**
  * @author and777
- *
- * {@link System}
+ * @see System
  * 系统工具类
  */
 public class SystemTests {
-
 
   /**
    * {@link System#arraycopy(Object, int, Object, int, int)}

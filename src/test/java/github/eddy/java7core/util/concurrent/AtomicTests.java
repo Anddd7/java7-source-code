@@ -12,11 +12,16 @@ import org.junit.Test;
 
 /**
  * @author and777
- * @date 2018/2/8
+ * @see java.util.concurrent.atomic.AtomicBoolean
+ * @see java.util.concurrent.atomic.AtomicInteger
+ * @see java.util.concurrent.atomic.AtomicLong
+ * @see java.util.concurrent.atomic.AtomicReference
  *
  * CAS 实现探究 和 Atomic 类
+ *
+ * TODO
  */
-public class TestAtomic {
+public class AtomicTests {
 
 
   private ExecutorService executor = Executors.newFixedThreadPool(5);
@@ -26,10 +31,6 @@ public class TestAtomic {
 
   /**
    * Atomic 基本类型
-   * {@link java.util.concurrent.atomic.AtomicBoolean}
-   * {@link java.util.concurrent.atomic.AtomicInteger}
-   * {@link java.util.concurrent.atomic.AtomicLong}
-   * {@link java.util.concurrent.atomic.AtomicReference}
    */
   @Test
   public void cas() throws InterruptedException {

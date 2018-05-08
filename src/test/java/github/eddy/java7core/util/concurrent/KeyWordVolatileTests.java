@@ -7,9 +7,9 @@ import org.junit.Test;
 
 /**
  * @author and777
- * @date 2018/1/30
+ * TODO
  */
-public class TestSyncAndVolatile {
+public class KeyWordVolatileTests {
 
   /**
    * volatile 标识的字段不会受缓存影响
