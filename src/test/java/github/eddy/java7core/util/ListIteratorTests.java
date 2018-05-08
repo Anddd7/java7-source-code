@@ -6,15 +6,12 @@ import static org.junit.Assert.assertTrue;
 
 import github.eddy.java7core.util.mockModels.MyIterable;
 import github.eddy.java7core.util.mockModels.MyIterable.MyListIterator;
-import java.util.Iterator;
 import java.util.ListIterator;
 import org.junit.Test;
 
 /**
  * @author Anddd7
- *
- * {@link ListIterator} extends {@link Iterator}
- * {@link ListIteratorTests} extends {@link IteratorTests}
+ * @see ListIterator
  * 扩展 Iterable 的功能 ,包括向前遍历 ,获取元素位置 index , 用于 List 组件
  */
 @SuppressWarnings("unchecked")

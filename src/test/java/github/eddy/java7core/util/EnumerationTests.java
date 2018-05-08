@@ -1,14 +1,13 @@
 package github.eddy.java7core.util;
 
 import java.util.Enumeration;
-import java.util.Iterator;
 
 /**
  * @author Anddd7
- *
- * {@link Enumeration} 类似 {@link Iterator}
+ * @see Enumeration
  *
  * 枚举 ,只读
+ * 类似Iterator
  */
 public class EnumerationTests {
 

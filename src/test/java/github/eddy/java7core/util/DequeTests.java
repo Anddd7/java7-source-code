@@ -1,12 +1,10 @@
 package github.eddy.java7core.util;
 
 import java.util.Deque;
-import java.util.Queue;
 
 /**
  * @author Anddd7
- * {@link Deque} extends {@link Queue}
- * {@link DequeTests} extends {@link QueueTests}
+ * @see Deque
  *
  * 双向队列 ,可以访问队首队尾的元素
  * 支持查询 ,但不支持随机访问队列中的元素

@@ -2,23 +2,14 @@ package github.eddy.java7core.util;
 
 import static org.junit.Assert.assertEquals;
 
-import github.eddy.java7core.io.CloneableTests;
-import github.eddy.java7core.io.SerializableTests;
-import java.io.Serializable;
-import java.util.AbstractCollection;
 import java.util.ArrayDeque;
 import java.util.ConcurrentModificationException;
-import java.util.Deque;
 import org.junit.Test;
 
 
 /**
  * @author Anddd7
- *
- * {@link ArrayDeque} extends {@link AbstractCollection}
- * implements {@link Deque,Cloneable,Serializable}
- * {@link ArrayDequeTests} extends {@link AbstractCollectionTests}
- * implements {@link DequeTests,CloneableTests,SerializableTests}
+ * @see ArrayDeque
  *
  * 基于数组实现的无限容量(自动扩容)队列
  */

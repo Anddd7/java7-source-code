@@ -1,29 +1,18 @@
 package github.eddy.java7core.util;
 
-import github.eddy.java7core.io.CloneableTests;
-import github.eddy.java7core.io.SerializableTests;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
-import java.util.List;
-import java.util.RandomAccess;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
  * @author Anddd7
- *
- * {@link ArrayList} extends {@link AbstractList}
- * implements {@link List,RandomAccess,Cloneable,Serializable}
- *
- * {@link ArrayListTests} extends {@link AbstractListTests}
- * implements {@link ListTests,RandomAccessTests,CloneableTests,SerializableTests}
+ * @see ArrayList
  *
  * 数组实现的 List
  */

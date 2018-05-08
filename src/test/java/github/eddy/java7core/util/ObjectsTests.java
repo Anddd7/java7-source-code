@@ -5,12 +5,10 @@ import java.util.Objects;
 
 /**
  * @author Anddd7
- *
- * {@link Objects}
+ * @see Objects}
  * 主要用来预防空指针
  */
 public class ObjectsTests {
-
   /**
    * {@link Objects#equals(Object, Object)}
    * {@link Objects#hashCode(Object)}

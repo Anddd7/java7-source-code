@@ -4,6 +4,10 @@
 
 
 # Tracker
+### 20180508
+* 除 Set 外, 常用的 Collection 都已经分析完毕
+* 简化语言描述, 增加测试用例(实践用法)
+
 ### 20180420
 * 对每一个类梳理一个 Tests 文件 ,并提供 Doc 注释或者测试案例
 * Collection/AbstractCollection/List 等接口和类的源码分析(基于方法)

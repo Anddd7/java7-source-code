@@ -1,6 +1,7 @@
 package github.eddy.java7core.util;
 
-import java.util.ArrayList;
+import static github.eddy.java7core.util.AbstractCollectionTests.MAX_ARRAY_SIZE;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -9,23 +10,14 @@ import java.util.Vector;
 
 /**
  * @author Anddd7
- *
- * {@link Vector} 同 {@link ArrayList}
- * {@link VectorTests} 同 {@link ArrayListTests}
+ * @see Vector
  *
  * 使用 synchronized 关键字同步关键(都是 public 操作)方法 ,实现线程安全
  * @deprecated synchronized 粒度太大 ,而且遗留方法多而杂 ,建议使用 {@link Collections#synchronizedList(List)}
  */
 @Deprecated
 public class VectorTests {
-  /**
-   * 同 {@link AbstractCollectionTests#MAX_ARRAY_SIZE}
-   */
-  private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
-  /**
-   * 同 {@link ArrayListTests#elementData}
-   */
   protected Object[] elementData;
 
   /**
@@ -76,7 +68,6 @@ public class VectorTests {
    * 因为 Vector 的结构设计早于 Java 集合 ,因此遗留了很多方法
    * 结合了 原有方法 和 ArrayList ,通过同步关键字实现 list 接口
    * ------------------------------------------------------
-   *
    */
   public VectorTests() {
   }

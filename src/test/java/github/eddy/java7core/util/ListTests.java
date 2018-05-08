@@ -5,9 +5,7 @@ import java.util.List;
 
 /**
  * @author Anddd7
- *
- * {@link List} extends {@link Collection}
- * {@link ListTests} extends {@link CollectionTests}
+ * @see List
  * 元素可重复的,线性集合 ,可以根据元素序列 index 对集合进行操作
  */
 public class ListTests {

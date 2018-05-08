@@ -11,8 +11,7 @@ import org.junit.Test;
 
 /**
  * @author Anddd7
- *
- * {@link Iterator}
+ * @see Iterator
  * 结合 Iterable ,实现迭代器用于for语法糖
  */
 public class IteratorTests {
@@ -44,11 +43,11 @@ public class IteratorTests {
   }
 
   @Test
-  public void iterator_ShouldContain4IntegersAfterSetParameters(){
+  public void iterator_ShouldContain4IntegersAfterSetParameters() {
     Iterator iterator = iterable.iterator();
     assertEquals(3, iterable.size());
 
-    iterable.setParameters(new int[]{4,3, 2, 1});
+    iterable.setParameters(new int[]{4, 3, 2, 1});
     assertEquals(4, iterable.size());
 
     assertTrue(iterator.hasNext());

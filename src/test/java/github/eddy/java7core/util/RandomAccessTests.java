@@ -10,8 +10,7 @@ import org.junit.Test;
 
 /**
  * @author and777
- *
- * {@link RandomAccess}
+ * @see RandomAccess
  * 标识一个List是否是可随机访问的, 可随机访问的(ArrayList)使用for循环要比iterator迭代器更快
  */
 @SuppressWarnings({"unused", "UnusedAssignment", "ForLoopReplaceableByForEach"})

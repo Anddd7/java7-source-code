@@ -7,9 +7,8 @@ import java.util.Iterator;
 
 /**
  * @author Anddd7
- *
- * {@link AbstractCollection} extends {@link Collection}
- * {@link AbstractCollectionTests} extends {@link CollectionTests}
+ * @see AbstractCollection
+ * @see Collection
  */
 public class AbstractCollectionTests {
 
@@ -17,7 +16,7 @@ public class AbstractCollectionTests {
    * 数组的最大长度在不同的 JVM 可能不同 ,通常是小于 Integer.MAX_VALUE 的
    * MAX_ARRAY_SIZE 是一个在大多数 JVM 上比较保险的值
    */
-  private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
+  static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
 
   /**
@@ -108,7 +107,7 @@ public class AbstractCollectionTests {
    * {@link AbstractCollection#finishToArray}
    * 获取数组最大长度
    */
-  private static int hugeCapacity(int minCapacity) {
+  static int hugeCapacity(int minCapacity) {
     // minCapacity = cap + 1
     if (minCapacity < 0) {
       // 已经是最大值 ,无法再扩

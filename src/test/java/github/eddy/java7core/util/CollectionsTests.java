@@ -17,8 +17,7 @@ import org.junit.Test;
 
 /**
  * @author and777
- *
- * {@link Collections}
+ * @see Collections
  * 集合工具类
  */
 public class CollectionsTests {

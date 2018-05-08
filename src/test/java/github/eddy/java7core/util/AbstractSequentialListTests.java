@@ -1,14 +1,11 @@
 package github.eddy.java7core.util;
 
-import java.util.AbstractList;
 import java.util.AbstractSequentialList;
 import java.util.Collection;
 
 /**
  * @author Anddd7
- *
- * {@link AbstractSequentialList} extends {@link AbstractList}
- * {@link AbstractSequentialListTests} extends {@link AbstractListTests}
+ * @see AbstractSequentialList
  *
  * 因为 SequentialList 只能顺序访问 ,因此get(index)/set(index)/remove(index)随机访问需要由迭代器获取
  */

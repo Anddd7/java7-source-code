@@ -1,15 +1,12 @@
 package github.eddy.java7core.util;
 
-import java.util.Collection;
 import java.util.Queue;
 
 /**
  * @author Anddd7
- * {@link Queue} extends {@link Collection}
- * {@link QueueTests} extends {@link CollectionTests}
+ * @see Queue
  *
  * 单向队列 ,只能访问队头的元素 ,先入先出
- *
  */
 public class QueueTests {
 

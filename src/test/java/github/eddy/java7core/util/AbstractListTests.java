@@ -7,9 +7,9 @@ import java.util.List;
 
 /**
  * @author Anddd7
- *
- * {@link AbstractList} extends {@link AbstractCollection} implements {@link List}
- * {@link AbstractListTests} extends {@link AbstractCollectionTests} implements {@link ListTests}
+ * @see AbstractList
+ * @see AbstractCollection
+ * @see List
  */
 public class AbstractListTests {
 

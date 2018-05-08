@@ -4,8 +4,7 @@ import java.util.Collection;
 
 /**
  * @author Anddd7
- *
- * {@link Collection}
+ * @see Collection
  */
 public class CollectionTests {
 

@@ -1,15 +1,12 @@
 package github.eddy.java7core.util;
 
-import java.util.AbstractQueue;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
  * @author Anddd7
- *
- * {@link PriorityQueue} extends {@link AbstractQueue}
- * {@link PriorityQueueTests} extends {@link AbstractQueueTests}
+ * @see PriorityQueue
  *
  * 基于数组的二叉小顶堆实现, 通过对树的调整, 保证元素能够按优先级进行取用
  * |    0

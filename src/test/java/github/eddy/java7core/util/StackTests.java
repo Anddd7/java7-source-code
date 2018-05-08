@@ -7,8 +7,7 @@ import java.util.Vector;
 /**
  * @author Anddd7
  *
- * {@link Stack} extends {@link Vector}
- * {@link StackTests} extends {@link VectorTests}
+ * @see Stack
  *
  * 基于 Vector 实现的后入先出 LIFO 栈
  * @deprecated vector 结构陈旧 ,推荐使用 {@link Deque}
@@ -29,7 +28,6 @@ public class StackTests {
    * synchronized {@link Stack#search(Object)}
    * - 从栈顶开始搜索元素
    */
-
   public StackTests() {
   }
 }

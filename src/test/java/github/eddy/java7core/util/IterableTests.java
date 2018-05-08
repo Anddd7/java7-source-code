@@ -15,8 +15,7 @@ import org.junit.Test;
 
 /**
  * @author and777
- *
- * {@link Iterable}
+ * @see Iterable
  * 实现该接口的对象可以使用for迭代器
  * for (Object o : it) {
  * }

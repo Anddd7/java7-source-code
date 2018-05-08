@@ -280,7 +280,7 @@ public class HashMapTests<K, V> {
     return e;
   }
 
-  static abstract class Entry<K, V> implements Map.Entry<K, V> {
+  public static abstract class Entry<K, V> implements Map.Entry<K, V> {
 
     K key;
     V value;

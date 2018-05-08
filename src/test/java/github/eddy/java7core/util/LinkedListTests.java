@@ -1,9 +1,5 @@
 package github.eddy.java7core.util;
 
-import github.eddy.java7core.io.CloneableTests;
-import github.eddy.java7core.io.SerializableTests;
-import java.io.Serializable;
-import java.util.AbstractSequentialList;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,38 +9,15 @@ import org.junit.Test;
 
 /**
  * @author Anddd7
- *
- * {@link LinkedList} extends {@link AbstractSequentialList}
- * implements {@link List,Deque,Cloneable,Serializable}
- *
- * {@link LinkedListTests} extends {@link AbstractSequentialListTests}
- * implements {@link ListTests,DequeTests,CloneableTests,SerializableTests}
- *
+ * @see LinkedList
  * 基于链表实现的 List 和 Deque
  */
 public class LinkedListTests<E> {
 
-  /**
-   * {@link LinkedList#modCount}
-   * - modify 计数
-   */
   protected transient int modCount = 0;
-  /**
-   * {@link LinkedList#first}
-   * 链表头指针
-   */
   transient Node<E> first;
-  /**
-   * {@link LinkedList#last}
-   * 链表尾指针
-   */
   transient Node<E> last;
-  /**
-   * {@link LinkedList#size}
-   * - 元素数
-   */
   transient int size = 0;
-
 
   /**
    * {@link LinkedList#node(int)}

@@ -9,8 +9,7 @@ import org.junit.Test;
 
 /**
  * @author and777
- *
- * {@link Arrays}
+ * @see Arrays
  * 数组工具类
  */
 public class ArraysTests {

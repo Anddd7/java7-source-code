@@ -5,7 +5,8 @@ import java.util.Map;
 
 /**
  * @author Anddd7
- * {@link AbstractMap} implements {@link Map}
+ * @see AbstractMap
+ * @see Map
  *
  * 实现了一些高级方法
  */
