@@ -23,7 +23,6 @@ public class SystemTests {
   @Test
   public void arrayCopy() {
     int[] source = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
-
     int[] b = new int[10];
     System.arraycopy(source, 0, b, 0, 10);
     assertEquals(source[4], b[4]);
