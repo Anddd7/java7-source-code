@@ -1,8 +1,11 @@
-package com.github.anddd7.book.models;
+package com.github.anddd7.book.basic;
 
 import com.github.anddd7.book.annotation.ThreadSafe;
 import java.util.Map;
 
+/**
+ * 无状态类天生线程安全
+ */
 @ThreadSafe
 public class StatelessAddition implements Servlet<Integer> {
 
@@ -20,7 +23,7 @@ public class StatelessAddition implements Servlet<Integer> {
    * 而这个变量会被多线程访问和修改, 就可能出现非预期的结果
    */
   @Override
-  public void service(Map<String, Integer> request, Map<String, Integer> response) {
+  public void service(final Map<String, Integer> request, final Map<String, Integer> response) {
     Integer first = request.get("first");
     Integer second = request.get("second");
     response.put("answer", first + second);

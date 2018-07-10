@@ -1,13 +1,15 @@
-package com.github.anddd7.book.models;
+package com.github.anddd7.book.basic;
 
 import java.util.Map;
 
-
+/**
+ * 使用 synchronized method 构造的线程安全的 缓存计数器
+ */
 public class SynchronizedCachingAddition implements Servlet<Integer> {
 
-  private int max = 0;
+  private final int max;
 
-  public SynchronizedCachingAddition(int max) {
+  SynchronizedCachingAddition(final int max) {
     this.max = max;
   }
 
@@ -20,7 +22,8 @@ public class SynchronizedCachingAddition implements Servlet<Integer> {
    */
   @Deprecated
   @Override
-  public synchronized void service(Map<String, Integer> request, Map<String, Integer> response) {
+  public synchronized void service(final Map<String, Integer> request,
+      final Map<String, Integer> response) {
     Integer first = request.get("first");
     Integer second = request.get("second");
     if (first.equals(lastFirst) && second.equals(lastSecond)) {
@@ -43,7 +46,7 @@ public class SynchronizedCachingAddition implements Servlet<Integer> {
     }
   }
 
-  public void objectSync() {
+  void objectSync() {
     synchronized (this) {
       if (lastFirst <= max) {
         lastFirst++;
@@ -51,14 +54,14 @@ public class SynchronizedCachingAddition implements Servlet<Integer> {
     }
   }
 
-  public int getLastFirst() {
+  int getLastFirst() {
     return lastFirst;
   }
 
   /**
    * synchronized是可重入的, 当线程获取锁后可以随意访问加锁代码块
    */
-  public synchronized int reduce(int i) {
+  synchronized int reduce(int i) {
     if (i == 0) {
       return i;
     }

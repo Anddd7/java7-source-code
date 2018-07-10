@@ -1,26 +1,31 @@
-package com.github.anddd7.book.models;
+package com.github.anddd7.book.basic;
 
+import com.github.anddd7.book.annotation.NotThreadSafe;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * 滥用/错误使用 原子类 构造的线程不安全缓存servlet
+ */
+@NotThreadSafe
 public class UnsafeCachingAddition implements Servlet<Integer> {
 
-  private int max;
+  private final int max;
 
-  public UnsafeCachingAddition(int max) {
+  UnsafeCachingAddition(int max) {
     this.max = max;
   }
 
-  private AtomicInteger lastFirst = new AtomicInteger(0);
-  private AtomicInteger lastSecond = new AtomicInteger(0);
-  private AtomicInteger lastAnswer = new AtomicInteger(0);
+  private final AtomicInteger lastFirst = new AtomicInteger(0);
+  private final AtomicInteger lastSecond = new AtomicInteger(0);
+  private final AtomicInteger lastAnswer = new AtomicInteger(0);
 
   /**
    * 单个内部变量的操作是原子性的, 但是多个变量/多个操作之间形成了新的竞态条件
    * get/set被人为的分拆到不同的地方, 并且无法保证原子性
    */
   @Override
-  public void service(Map<String, Integer> request, Map<String, Integer> response) {
+  public void service(final Map<String, Integer> request, final Map<String, Integer> response) {
     Integer first = request.get("first");
     Integer second = request.get("second");
     if (first.equals(lastFirst.get()) && second.equals(lastSecond.get())) {
@@ -34,14 +39,14 @@ public class UnsafeCachingAddition implements Servlet<Integer> {
     }
   }
 
-  public int getLastFirst() {
+  int getLastFirst() {
     return lastFirst.get();
   }
 
   /**
    * 模拟service方法中将get/set拆开执行的方式
    */
-  public void getThenSet() {
+  void getThenSet() {
     int now = lastFirst.get();
     if (now < max) {
       lastFirst.set(now + 1);

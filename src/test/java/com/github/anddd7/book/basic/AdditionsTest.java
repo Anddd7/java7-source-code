@@ -1,12 +1,11 @@
-package com.github.anddd7.book.models;
+package com.github.anddd7.book.basic;
 
 import static java.lang.String.format;
 
+import com.github.anddd7.ThreadHelper;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,34 +28,26 @@ public class AdditionsTest {
 
   @Test
   public void unsafeCountingAddition_service() throws InterruptedException {
-    ExecutorService executorService = Executors.newFixedThreadPool(2);
-    for (int i = 0; i < REDO_TIMER; i++) {
-      executorService.submit(new Runnable() {
-        @Override
-        public void run() {
-          unsafeCountingAddition.service(request, response);
-        }
-      });
-    }
-    while (executorService.awaitTermination(1000, TimeUnit.MILLISECONDS)) {
-    }
+    ExecutorService executorService = ThreadHelper.executeTask(2, REDO_TIMER, new Runnable() {
+      @Override
+      public void run() {
+        unsafeCountingAddition.service(request, response);
+      }
+    });
+    ThreadHelper.waitFor(executorService);
     System.out.println(
         format("%s final %s", unsafeCountingAddition, unsafeCountingAddition.getCount()));
   }
 
   @Test
   public void countingAddition_service() throws InterruptedException {
-    ExecutorService executorService = Executors.newFixedThreadPool(2);
-    for (int i = 0; i < REDO_TIMER; i++) {
-      executorService.submit(new Runnable() {
-        @Override
-        public void run() {
-          atomicCountingAddition.service(request, response);
-        }
-      });
-    }
-    while (executorService.awaitTermination(1000, TimeUnit.MILLISECONDS)) {
-    }
+    ExecutorService executorService = ThreadHelper.executeTask(2, REDO_TIMER, new Runnable() {
+      @Override
+      public void run() {
+        atomicCountingAddition.service(request, response);
+      }
+    });
+    ThreadHelper.waitFor(executorService);
     System.out.println(
         format("%s final %s", atomicCountingAddition, atomicCountingAddition.getCount()));
   }
@@ -67,34 +58,26 @@ public class AdditionsTest {
 
   @Test
   public void unsafeCachingAddition_getThenSet() throws InterruptedException {
-    ExecutorService executorService = Executors.newFixedThreadPool(2);
-    for (int i = 0; i < REDO_TIMER; i++) {
-      executorService.submit(new Runnable() {
-        @Override
-        public void run() {
-          unsafeCachingAddition.getThenSet();
-        }
-      });
-    }
-    while (executorService.awaitTermination(1000, TimeUnit.MILLISECONDS)) {
-    }
+    ExecutorService executorService = ThreadHelper.executeTask(2, REDO_TIMER, new Runnable() {
+      @Override
+      public void run() {
+        unsafeCachingAddition.getThenSet();
+      }
+    });
+    ThreadHelper.waitFor(executorService);
     System.out.println(
         format("%s final %s", unsafeCachingAddition, unsafeCachingAddition.getLastFirst()));
   }
 
   @Test
   public void synchronizedCachingAddition_methodSync() throws InterruptedException {
-    ExecutorService executorService = Executors.newFixedThreadPool(2);
-    for (int i = 0; i < REDO_TIMER; i++) {
-      executorService.submit(new Runnable() {
-        @Override
-        public void run() {
-          synchronizedCachingAddition.methodSync();
-        }
-      });
-    }
-    while (executorService.awaitTermination(1000, TimeUnit.MILLISECONDS)) {
-    }
+    ExecutorService executorService = ThreadHelper.executeTask(2, REDO_TIMER, new Runnable() {
+      @Override
+      public void run() {
+        synchronizedCachingAddition.methodSync();
+      }
+    });
+    ThreadHelper.waitFor(executorService);
     System.out.println(
         format("%s final %s", synchronizedCachingAddition,
             synchronizedCachingAddition.getLastFirst()));
@@ -102,17 +85,13 @@ public class AdditionsTest {
 
   @Test
   public void synchronizedCachingAddition_objectSync() throws InterruptedException {
-    ExecutorService executorService = Executors.newFixedThreadPool(2);
-    for (int i = 0; i < REDO_TIMER; i++) {
-      executorService.submit(new Runnable() {
-        @Override
-        public void run() {
-          synchronizedCachingAddition.objectSync();
-        }
-      });
-    }
-    while (executorService.awaitTermination(1000, TimeUnit.MILLISECONDS)) {
-    }
+    ExecutorService executorService = ThreadHelper.executeTask(2, REDO_TIMER, new Runnable() {
+      @Override
+      public void run() {
+        synchronizedCachingAddition.objectSync();
+      }
+    });
+    ThreadHelper.waitFor(executorService);
     System.out.println(format("%s final %s", synchronizedCachingAddition,
         synchronizedCachingAddition.getLastFirst()));
   }
