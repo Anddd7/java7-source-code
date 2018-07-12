@@ -1,6 +1,7 @@
 package com.github.anddd7.book.vehicle;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -15,6 +16,9 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class DelegatingVehicleTracker {
 
+  /**
+   * 容器不可变, 但内部元素对象可变
+   */
   private final ConcurrentMap<String, Point> locations;
   private final Map<String, Point> unmodifiableMap;
 
@@ -28,9 +32,17 @@ public class DelegatingVehicleTracker {
 
   /**
    * unmodifiableMap 是线程安全的, 直接返回不用同步
+   * Latest: 但是因为直接返回的引用, 所以当内部的locations状态(通过set->replace)变化, 也会直接反馈在外部
    */
-  public Map<String, Point> getLocations() {
+  public Map<String, Point> getLatestLocations() {
     return unmodifiableMap;
+  }
+
+  /**
+   * Current: 与上面不同的是, 返回的是新的对象(HashMap), 包含的元素也是执行时的快照(因为内部元素也是不可变的)
+   */
+  public Map<String, Point> getCurrentLocations() {
+    return Collections.unmodifiableMap(new HashMap<>(locations));
   }
 
   /**
@@ -45,7 +57,7 @@ public class DelegatingVehicleTracker {
    */
   public void setLocation(String id, int x, int y) {
     if (locations.replace(id, new Point(x, y)) == null) {
-      throw new IllegalArgumentException(String.format("invalid vehicle name: %s", id));
+      throw new IllegalArgumentException("No such ID: " + id);
     }
   }
 }
@@ -58,5 +70,8 @@ class Point {
   Point(int x, int y) {
     this.x = x;
     this.y = y;
+  }
+  public int[] get() {
+    return new int[]{x, y};
   }
 }

@@ -13,8 +13,7 @@ import java.util.Map;
 public class MonitorVehicleTracker {
 
   /**
-   * 保证Map对象的不可变: 引用/元素引用
-   * 但元素对象内部的属性可变
+   * 容器不可变, 但内部元素对象属性可变
    */
   private final Map<String, MutablePoint> locations;
 
@@ -41,7 +40,7 @@ public class MonitorVehicleTracker {
   }
 
   /**
-   * 不对外发布内部变量(容器内的)
+   * 不对外发布内部变量(容器内的), 即使返回对象被修改也不会影响内部
    */
   public synchronized MutablePoint getLocation(String id) {
     MutablePoint loc = locations.get(id);
@@ -49,7 +48,10 @@ public class MonitorVehicleTracker {
   }
 
   /**
-   * 保证对内部变量的原子修改
+   * 这里的同步主要是保持和 getLocations/getLocation 的互斥
+   * 否则会发生 getLocation/setLocation 的混乱
+   *
+   * @see PublishingVehicleTracker#setLocation(String, int, int)
    */
   public synchronized void setLocation(String id, int x, int y) {
     MutablePoint loc = locations.get(id);
@@ -72,5 +74,9 @@ class MutablePoint {
   public void set(int x, int y) {
     this.x = x;
     this.y = y;
+  }
+
+  public int[] get() {
+    return new int[]{x, y};
   }
 }

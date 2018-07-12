@@ -2,6 +2,7 @@ package com.github.anddd7.book.basic;
 
 import com.github.anddd7.book.annotation.NotThreadSafe;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -28,6 +29,7 @@ public class UnsafeCachingAddition implements Servlet<Integer> {
   public void service(final Map<String, Integer> request, final Map<String, Integer> response) {
     Integer first = request.get("first");
     Integer second = request.get("second");
+    // check-than-act
     if (first.equals(lastFirst.get()) && second.equals(lastSecond.get())) {
       response.put("answer", lastAnswer.get());
     } else {

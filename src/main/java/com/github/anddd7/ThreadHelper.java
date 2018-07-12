@@ -8,7 +8,7 @@ public class ThreadHelper {
 
   private static final int WAIT_TIME = 1000;
 
-  public static  ExecutorService executeTask(int threadNum, int redoTimes, Runnable task) {
+  public static ExecutorService executeTask(int threadNum, int redoTimes, Runnable task) {
     ExecutorService executorService = Executors.newFixedThreadPool(threadNum);
     for (int i = 0; i < redoTimes; i++) {
       executorService.execute(task);
