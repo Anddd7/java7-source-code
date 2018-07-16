@@ -37,8 +37,8 @@ public class SynchronizedContainers {
   interface Function {
 
     void accept(Object o);
-  }
 
+  }
   /**
    * 同上, 在迭代途中vector状态变化, 导致get操作失败
    *

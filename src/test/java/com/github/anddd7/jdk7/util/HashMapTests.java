@@ -1,5 +1,8 @@
 package com.github.anddd7.jdk7.util;
 
+import static java.lang.String.format;
+
+import java.lang.reflect.Array;
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,18 +20,18 @@ public class HashMapTests<K, V> {
   /**
    * 最大元素数
    */
-  static final int MAXIMUM_CAPACITY = 1 << 30;
+  private static final int MAXIMUM_CAPACITY = 1 << 30;
   static final int ALTERNATIVE_HASHING_THRESHOLD_DEFAULT = Integer.MAX_VALUE;
-  static final Entry[] EMPTY_TABLE = {};
-  final float loadFactor = 0.75f;
-  int threshold;
+  private static final Entry[] EMPTY_TABLE = {};
+  private final float loadFactor = 0.75f;
+  private int threshold;
   /**
    * 桶
    */
-  transient Entry<K, V>[] table = (Entry<K, V>[]) EMPTY_TABLE;
-  transient int hashSeed = 0;
-  transient int size;
-  transient int modCount;
+  private transient Entry<K, V>[] table = (Entry<K, V>[]) EMPTY_TABLE;
+  private transient int hashSeed = 0;
+  private transient int size;
+  private transient int modCount;
 
   /**
    * {@link HashMap#HashMap()}
@@ -97,7 +100,7 @@ public class HashMapTests<K, V> {
 
   /**
    * {@link HashMap#hash(Object)}
-   * - 散列算法
+   * - 再散列算法, 防止过于脆弱的hashCode方法影响分桶效率
    */
   final int hash(Object k) {
     int h = hashSeed;
@@ -106,9 +109,85 @@ public class HashMapTests<K, V> {
     }
     h ^= k.hashCode();
 
-    // 增加散列程度
+    // 增加散列程度(hashCode()方法太脆弱), 将高位的code互相扰乱 (JDK8简化了这一步)
     h ^= (h >>> 20) ^ (h >>> 12);
     return h ^ (h >>> 7) ^ (h >>> 4);
+  }
+
+  @Test
+  public void hash() {
+    Object o = new Object();
+    int hashSeed = 0;
+
+    int hash = o.hashCode();
+    System.out.println(format("hash code :\t%s", toBinaryString(hash)));
+
+    hash ^= hashSeed;
+    System.out.println(format("hash seed :\t%s", toBinaryString(hash)));
+
+    int temp1 = hash >>> 20;
+    int temp2 = hash >>> 12;
+    int temp3 = temp1 ^ temp2;
+    System.out.println(
+        format("hash temp1:\t%s", toBinaryString(temp1)));
+    System.out.println(
+        format("hash temp2:\t%s", toBinaryString(temp2)));
+    System.out.println(
+        format("hash temp3:\t%s", toBinaryString(temp3)));
+
+    hash ^= temp3;
+    System.out.println(
+        format("hash after:\t%s", toBinaryString(hash)));
+    showDifference(o.hashCode(), hash);
+
+    int temp4 = hash >>> 7;
+    int temp5 = hash >>> 4;
+    int temp6 = temp4 ^ temp5;
+    System.out.println(
+        format("hash temp4:\t%s", toBinaryString(temp4)));
+    System.out.println(
+        format("hash temp5:\t%s", toBinaryString(temp5)));
+    System.out.println(
+        format("hash temp6:\t%s", toBinaryString(temp6)));
+
+    hash ^= temp6;
+    System.out.println(
+        format("hash after:\t%s", toBinaryString(hash)));
+    showDifference(o.hashCode(), hash);
+  }
+
+  private String toBinaryString(int hash) {
+    String hashString = Integer.toBinaryString(hash);
+    int paddingNum = 30 - hashString.length();
+    StringBuilder padding = new StringBuilder();
+    while (paddingNum > 0) {
+      padding.append(" ");
+      paddingNum--;
+    }
+    return padding + hashString;
+  }
+
+  private void showDifference(int s, int t) {
+    String source = toBinaryString(s);
+    String target = toBinaryString(t);
+
+    StringBuilder outSource = new StringBuilder();
+    StringBuilder outTarget = new StringBuilder();
+
+    int point = 0;
+    while (point < source.length()) {
+      char x = source.charAt(point);
+      char y = target.charAt(point);
+      if (x != y) {
+        outSource.append("[").append(x).append("]");
+        outTarget.append("[").append(y).append("]");
+      } else {
+        outSource.append(x);
+        outTarget.append(y);
+      }
+      point++;
+    }
+    System.out.println(String.format("difference:\n\t%s\n\t%s", outSource, outTarget));
   }
 
   /**
@@ -278,6 +357,91 @@ public class HashMapTests<K, V> {
       e = next;
     }
     return e;
+  }
+
+  /**
+   * @see HashMap#transfer(HashMap.Entry[], boolean)
+   * - rehash时重新映射元素
+   * - 引起死循环的地方
+   */
+  void transfer(Entry[] newTable, boolean rehash) {
+    int newCapacity = newTable.length;
+    for (Entry<K, V> e : table) {
+      // 循环桶中的链表
+      while (null != e) {
+        // e: 当前元素, next: 下一个循环的元素
+        Entry<K, V> next = e.next;
+        if (rehash) {
+          e.hash = null == e.key ? 0 : hash(e.key);
+        }
+        // 计算新位置
+        int i = indexFor(e.hash, newCapacity);
+        // 将e插入到table[i]的链表头
+        /*
+         并发环境下: e = x, next = y
+         线程A执行过后, 交换了x/y的位置: y->x
+         线程B执行: table[i]=x
+
+         线程B进入下一个循环: e = y, next = x(由线程A修改)
+         线程B执行: table[i]=y->x
+
+         线程B进入下一个循环: e = x, next = null
+         线程B执行: table[i]=x->y->x (!!!环形链表出现)
+
+         现在当一个get方法在遍历table[i]时, 就会出现死循环: CPU 100%
+         */
+        e.next = newTable[i];
+        newTable[i] = e;
+        // 继续下一个循环
+        e = next;
+      }
+    }
+  }
+
+
+  @Test
+  public void concurrentIssue_WhenTransferInMultiThread() {
+    // 0.默认只有一条链
+    Node[] newTable = (Node[]) Array.newInstance(Node.class, 1);
+
+    // 0.待处理的链: x->y
+    Node x = new Node("x", new Node("y", null));
+    Node y = x.next;
+
+    // 1.线程A执行后, newTable: y->x->null
+    y.next = x;
+    x.next = null;
+    newTable[0] = y;
+
+    // 2.线程B仍以x->y的顺序遍历
+    Node e = x;
+    Node next = y;
+
+    e.next = newTable[0];// x->y->x
+    newTable[0] = e;//newTable[0]: x->y->x
+
+    // 3.进入下一个循环
+    e = next;// y
+    next = y.next;// x
+
+    System.out.println(x);
+    System.out.println(y);
+  }
+
+  private class Node {
+
+    private String key;
+    private Node next;
+
+    Node(String key, Node next) {
+      this.key = key;
+      this.next = next;
+    }
+
+    @Override
+    public String toString() {
+      return format("key:[%s],next:[%s]", key, next.key);
+    }
   }
 
   public static abstract class Entry<K, V> implements Map.Entry<K, V> {

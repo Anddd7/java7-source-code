@@ -3,9 +3,14 @@ package com.github.anddd7.book.basic;
 import static java.lang.String.format;
 
 import com.github.anddd7.ThreadHelper;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Lock;
 import org.junit.Before;
 import org.junit.Test;
 
