@@ -60,6 +60,7 @@ public class ConcurrentContainersTests {
    * |  - 当且仅当需要对Map对象进行加锁时, 才放弃concurrent (一些特别的扩展需求)
    *
    * @see ConcurrentHashMapTests
+   * @see CopyOnWriteArrayListTests
    */
   private Map<Integer, Object> syncMap;
   private Map<Integer, Object> concurrentMap;
