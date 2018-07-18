@@ -4,21 +4,52 @@ import static java.util.Collections.synchronizedList;
 import static java.util.Collections.synchronizedMap;
 
 import com.github.anddd7.ThreadHelper;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Random;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.SynchronousQueue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
+/**
+ * 并发容器类: 使用细粒度的锁对操作进行同步(读写锁/互斥锁......)
+ * -  {@link SynchronizedContainersTests}同步容器是使用Synchronized同步入口操作, 但是会使操作串行化, 降低了并发
+ */
 public class ConcurrentContainersTests {
+
+  /**
+   * 常用容器线程安全版
+   *
+   * @see CopyOnWriteArrayList
+   * @see CopyOnWriteArraySet
+   * @see ConcurrentHashMap
+   *
+   * FIFO队列
+   * @see ArrayBlockingQueue,ArrayDeque
+   * @see LinkedBlockingQueue,LinkedList
+   *
+   * 优先级队列
+   * @see PriorityBlockingQueue,PriorityQueue
+   *
+   * 双向队列
+   * @see LinkedBlockingDeque,LinkedList
+   * @see SynchronousQueue
+   */
 
   private static final Integer ELEMENT_COUNT = 1000000;
   private static final Integer THREAD_COUNT = 2;

@@ -1,6 +1,7 @@
-package com.github.anddd7.jdk7.util.concurrent;
+package com.github.anddd7.book.container;
 
 import com.github.anddd7.ThreadHelper;
+import com.github.anddd7.book.container.HiddenIterator;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;

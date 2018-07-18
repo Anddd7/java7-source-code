@@ -1,10 +1,11 @@
-package com.github.anddd7.jdk7.util.concurrent;
+package com.github.anddd7.book.container;
 
 import com.github.anddd7.ThreadHelper;
+import com.github.anddd7.book.container.FileCrawler;
+import com.github.anddd7.book.container.Indexer;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -12,7 +13,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ThreadFactory;
 import org.junit.Test;
 
 public class FileIndexerTest {

@@ -1,4 +1,4 @@
-package com.github.anddd7.jdk7.util.concurrent;
+package com.github.anddd7.book.container;
 
 import java.util.HashSet;
 import java.util.Random;
