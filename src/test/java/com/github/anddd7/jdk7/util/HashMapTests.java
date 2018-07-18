@@ -31,7 +31,7 @@ public class HashMapTests<K, V> {
   private transient Entry<K, V>[] table = (Entry<K, V>[]) EMPTY_TABLE;
   private transient int hashSeed = 0;
   private transient int size;
-  private transient int modCount;
+  transient int modCount;
 
   /**
    * {@link HashMap#HashMap()}

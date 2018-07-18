@@ -1,5 +1,7 @@
 package com.github.anddd7;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -25,13 +27,25 @@ public class ThreadHelper {
     return executeTask(threadNum, redoTimes, task, null);
   }
 
-  public static ExecutorService executeTask(
-      int threadNum, int redoTimes,
-      Runnable task, ThreadFactory threadFactory) {
+  public static ExecutorService executeTask(int threadNum, int redoTimes, Runnable task,
+      ThreadFactory threadFactory) {
+    List<Runnable> tasks = new ArrayList<>(redoTimes);
+    for (int i = 0; i < redoTimes; i++) {
+      tasks.add(task);
+    }
+    return executeTasks(threadNum, tasks, threadFactory);
+  }
+
+  public static ExecutorService executeTasks(int threadNum, List<Runnable> tasks) {
+    return executeTasks(threadNum, tasks, null);
+  }
+
+  public static ExecutorService executeTasks(
+      int threadNum, List<Runnable> tasks, ThreadFactory threadFactory) {
     ExecutorService executorService = threadFactory == null ?
         Executors.newFixedThreadPool(threadNum) :
         Executors.newFixedThreadPool(threadNum, threadFactory);
-    for (int i = 0; i < redoTimes; i++) {
+    for (Runnable task : tasks) {
       executorService.execute(task);
     }
     return executorService;
@@ -41,4 +55,5 @@ public class ThreadHelper {
     while (executorService.awaitTermination(WAIT_TIME, TimeUnit.MILLISECONDS)) {
     }
   }
+
 }

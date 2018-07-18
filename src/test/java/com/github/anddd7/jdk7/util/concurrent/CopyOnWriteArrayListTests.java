@@ -8,10 +8,13 @@ import java.util.concurrent.locks.ReentrantLock;
  * @see CopyOnWriteArrayList
  * @see java.util.concurrent.CopyOnWriteArraySet
  *
- * "Copy On Write"写入时复制的线程安全:
- * -  发布一个事实不可变对象
- * -  修改时创建并引用新的容器副本
+ * "Copy On Write"写入时复制的线程安全: (延时懒惰策略)
+ * -  发布一个事实不可变对象: 不可变的array
+ * -  修改时创建并引用新的容器副本: new Array = copy(old array)
  * -  使用volatile保证容器副本的替代具有可见性
+ *
+ * 优点: 线程安全; 读并发; 简单实用
+ * 缺点: 数据量大的时候, add/remove元素触发复制耗时
  */
 public class CopyOnWriteArrayListTests<E> {
 
