@@ -1,4 +1,4 @@
-package com.github.anddd7.book.webserver;
+package com.github.anddd7.book.task.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
