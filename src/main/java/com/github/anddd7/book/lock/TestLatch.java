@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutorService;
 
 /**
  * @see CountDownLatch 闭锁
+ * 延迟线程的进度直到锁达到终极状态, 达到开锁条件后会一直开启
  */
 public class TestLatch {
 
@@ -32,8 +33,8 @@ public class TestLatch {
             System.out.println(String.format("%s:任务执行中", Thread.currentThread().getName()));
             task.run();
           } finally {
-            endGate.countDown();
             System.out.println(String.format("%s:任务执行完成", Thread.currentThread().getName()));
+            endGate.countDown();
           }
         } catch (InterruptedException e) {
         }
