@@ -1,4 +1,4 @@
-package com.github.anddd7.book.lock;
+package com.github.anddd7.book.tools;
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
