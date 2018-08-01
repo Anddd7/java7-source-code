@@ -1,4 +1,4 @@
-package com.github.anddd7.book.task;
+package com.github.anddd7.book.task.interrupt;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
