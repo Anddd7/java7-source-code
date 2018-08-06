@@ -4,6 +4,19 @@
 
 
 # Tracker
+### 20180806
+* **Java Concurrency in Practice** 读书笔记和示例代码
+  * 包括 线程基础/同步sync/并发concurrent/容器/线程池
+  * 示例代码
+* JUC容器的源码解析
+  * Synchronized 同步容器
+  * Concurrent 并发容器: Map/List/Queue
+  * 阻塞队列
+* JUC锁: 
+  * CountDownLatch 闭锁
+  * AQS 锁的公共类
+
+
 ### 20180514
 * String, 部分Character
 

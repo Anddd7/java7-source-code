@@ -44,7 +44,6 @@ public class LogWriter {
     }
   }
 
-
   public class LoggerThread extends Thread {
 
     private final PrintWriter writer;
