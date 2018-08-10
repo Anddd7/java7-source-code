@@ -26,6 +26,9 @@ public class ReactiveTaskPool {
 
   /**
    * 响应式编程则是由scheduler进行调度
+   * - 但是要注意资源死锁
+   * |  - 向有界线程池中提交任务可能会被拒绝或阻塞
+   * |  - 需要保证任务按提交顺序执行, 如果后续的任务抢占了资源但又无法执行(等待前置任务)
    */
   public void reactiveSave(final Map<String, Object> object) {
     final Future<Boolean> isExisted = reactivePool.submit(new Callable<Boolean>() {
