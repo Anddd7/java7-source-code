@@ -4,6 +4,11 @@
 
 
 # Tracker
+### 20181014
+**Java11**正式发布并作为新的长期支持版本, 未来的应用会逐步迁移到Java11.
+因此**Java8**以前的API参考价值越来越弱, 因此本Repo不再更新, 一些内容将迁移到Java8上.
+
+
 ### 20180806
 * **Java Concurrency in Practice** 读书笔记和示例代码
   * 包括 线程基础/同步sync/并发concurrent/容器/线程池
